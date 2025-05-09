@@ -2,6 +2,7 @@ Werkzeug==2.1.1
 Flask==2.1.1
 langchain_openai
 browser_use
-openai  # Assuming you use OpenAI's library
+openai
 uvicorn
 gunicorn
+python-dotenv==1.1.0
