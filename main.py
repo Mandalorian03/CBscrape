@@ -2,6 +2,14 @@ from flask import Flask, jsonify, request
 from langchain_openai import ChatOpenAI
 from browser_use import Agent
 import asyncio
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Fetch the OpenAI API key from environment variables
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
 
@@ -20,7 +28,7 @@ Follow the exact same steps
 
 @app.route('/extract_offers', methods=['GET'])
 async def extract_offers():
-    llm = ChatOpenAI(model="gpt-4o")
+    llm = ChatOpenAI(model="gpt-4o", api_key=openai_api_key)  # Pass the API key here
     agent = Agent(task=prompt, llm=llm)
 
     # Running the agent to complete the task
@@ -36,4 +44,6 @@ async def extract_offers():
         return jsonify({"error": "No result"}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # Use 'uvicorn' to run the Flask app with async support
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=5000)
