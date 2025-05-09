@@ -3,3 +3,4 @@ langchain_openai
 browser_use
 openai  # Assuming you use OpenAI's library
 uvicorn
+gunicorn
